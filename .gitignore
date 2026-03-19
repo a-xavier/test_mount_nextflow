@@ -1,0 +1,37 @@
+# Nextflow work and temp directories
+work/
+work-*/
+pipeline_info/
+results/
+output/
+logs/
+trace.txt
+report.html
+timeline.html
+dag.png
+nextflow.log
+/.nextflow*
+
+# Ignore scratch and temp files
+*.tmp
+*.temp
+*.bak
+*~
+*.swp
+*.swo
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore editor/project files
+.vscode/
+.idea/
+*.code-workspace
+
+# Ignore Python virtual environments (if used)
+venv/
+.venv/
+
+# Ignore Jupyter notebooks checkpoints
+.ipynb_checkpoints/
