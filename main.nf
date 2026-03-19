@@ -11,7 +11,6 @@ process scratch_check {
     tag "scratch-check"
 
     container '419387107450.dkr.ecr.ap-southeast-2.amazonaws.com/portalseq/vep:latest'
-    containerOptions '-v /mnt/scratch:/scratch:rw'
 
     publishDir "s3://test-nextflow-pipeline/work/scratch_check_report/", mode: 'copy'
     
