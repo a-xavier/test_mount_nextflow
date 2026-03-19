@@ -11,7 +11,8 @@ process scratch_check {
     tag "scratch-check"
 
     container '419387107450.dkr.ecr.ap-southeast-2.amazonaws.com/portalseq/vep:latest'
-
+    containerOptions '-v /mnt/scratch:/scratch:rw'
+    
     cpus 1
     memory '1 GB'
     time '10 min'
