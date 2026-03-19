@@ -1,48 +1,48 @@
 nextflow.enable.dsl=2
 
-params.scratch_path   = params.scratch_path ?: '/scratch'
-params.min_scratch_gb = params.min_scratch_gb ?: 350
-
-workflow {
-    check_storage()
-}
-
-process check_storage {
-    tag "storage-audit"
-    container '419387107450.dkr.ecr.ap-southeast-2.amazonaws.com/portalseq/vep:latest'
+process CHECK_STORAGE_LIVE {
+    container 'amazonlinux:2023'
     
-    // We don't need 'containerOptions' mounts anymore because 
-    // Nextflow's 'scratch' directive handles the directory creation.
-
-    publishDir "s3://test-nextflow-pipeline/reports/", mode: 'copy'
-
-    output:
-    path "disk_report.txt"
+    // Using the boolean true is more robust in Nextflow configs
+    scratch true 
 
     script:
     """
-    {
-      echo "=== Storage Audit Report ==="
-      echo "Date: \$(date)"
-      echo "Hostname: \$(hostname)"
-      echo "User: \$(id)"
-      echo ""
-      echo "=== Disk Space (df -h) ==="
-      # Look for the '/' mount - it should now be ~400G
-      df -h /
-      echo ""
-      echo "=== Mount Points (lsblk) ==="
-      lsblk
-      echo ""
-      echo "=== Permissions for /mnt/scratch ==="
-      # This checks the host directory we created in User Data
-      ls -ld /mnt/scratch || echo "/mnt/scratch not visible"
-      echo ""
-      echo "=== Write Test ==="
-      # Attempt to create a 100MB dummy file to prove it works
-      dd if=/dev/zero of=/mnt/scratch/test_write.img bs=1M count=100
-      echo "Write test successful."
-      rm /mnt/scratch/test_write.img
-    } > disk_report.txt
+    echo "===================================================="
+    echo "STATUS: STARTING STORAGE AUDIT"
+    echo "===================================================="
+    echo "TIMESTAMP: \$(date)"
+    echo "USER:      \$(id)"
+    echo ""
+
+    echo "--- 1. MOUNTED FILESYSTEMS (df -h) ---"
+    # This will show if / is ~400G
+    df -h /
+    echo ""
+
+    echo "--- 2. TASK DIRECTORY SPACE (df -h .) ---"
+    # This confirms the space available to the running container
+    df -h .
+    echo ""
+
+    echo "--- 3. PHYSICAL HARDWARE (lsblk) ---"
+    # This proves the 400G EBS volume is attached as the root
+    lsblk
+    echo ""
+
+    echo "--- 4. WRITE CAPACITY TEST ---"
+    echo "Creating 1GB test file in current work dir..."
+    dd if=/dev/zero of=test_1gb.bin bs=1M count=1000 status=progress
+    echo ""
+    echo "Write successful. Deleting test file."
+    rm test_1gb.bin
+    
+    echo "===================================================="
+    echo "STATUS: AUDIT COMPLETE"
+    echo "===================================================="
     """
+}
+
+workflow {
+    CHECK_STORAGE_LIVE()
 }
