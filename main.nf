@@ -4,7 +4,7 @@ params.scratch_path   = params.scratch_path ?: '/scratch'
 params.min_scratch_gb = params.min_scratch_gb ?: 350
 
 workflow {
-    scratch_check()
+    check_storage()
 }
 
 process check_storage {
