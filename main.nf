@@ -1,7 +1,7 @@
 nextflow.enable.dsl=2
 
 process CHECK_STORAGE_LIVE {
-    container 'amazonlinux:2023'
+    container '419387107450.dkr.ecr.ap-southeast-2.amazonaws.com/portalseq/vep:latest'
     
     // Using the boolean true is more robust in Nextflow configs
     scratch true 
