@@ -1,4 +1,0 @@
-2026-03-19 20:43:48	-	cranky_williams	-	45fc4e90b022667a7d4b3eb9415fd17d	90503504-9bb7-4fe6-a5b8-c0ca34919b8c	nextflow run main.nf
-2026-03-19 20:44:11	-	crazy_goldstine	-	7380af6bc562db6aaf78729d541b17e0	db757d27-a419-4464-8cd5-311d010db961	nextflow run main.nf
-2026-03-19 20:44:27	-	silly_gates	-	22d76341c974c1b6b99099a4dc73936c	d7bffe48-6a8c-41ad-b290-81b230a593d3	nextflow run main.nf
-2026-03-19 20:44:45	1.4s	magical_torricelli	ERR	0d1eb1b77d33956e9fc1007af493dfd5	1ee3f10b-c87a-49b9-8ae4-c2761366c385	nextflow run main.nf

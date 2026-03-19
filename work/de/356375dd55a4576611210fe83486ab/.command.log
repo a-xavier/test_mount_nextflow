@@ -1,5 +1,0 @@
-date: invalid argument 's' for -I
-grep: /proc/mounts: No such file or directory
-df: /scratch: No such file or directory
-ls: /scratch: No such file or directory
-ERROR: /scratch does not exist
